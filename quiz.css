@@ -1,0 +1,250 @@
+:root {
+  --primaryBlue: #0066cc;
+  --secondaryBlue: #3DB2FF;
+  --error: #ff0000;
+  --red: #FF5C58;
+  --green: #21BF73;
+  --secondary-green: #4E9F3D;
+  --orange: #FF7800;
+  --secondary-orange: #FF5403;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+main h1, h2, h3, h4, h5, h6, p {
+  margin: 0;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
+
+main {
+  padding: 10px;
+}
+
+header {
+  text-align: center;
+  font-size: 12px;
+  color: white;
+  width: 100vw;
+  background-color: var(--primaryBlue);
+  padding: 2px;
+}
+
+.wrapper {
+  position: relative;
+  margin: auto;
+  margin-top: 190px;
+  padding: 7px;
+  width: 50%;
+  border: 2px solid gray;
+  border-radius: 8px;
+  box-shadow: 0 0 8px black;
+}
+
+.topInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.score {
+  font-family: 'Oswald';
+  font-weight: bold;
+  border: 2px solid var(--primaryBlue);
+  padding: 6px;
+  border-radius: 4px;
+}
+
+.timer {
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Noto Sans';
+  font-weight: bold;
+  border: 2px solid var(--primaryBlue);
+  padding: 4px;
+  width: 137px;
+  border-radius: 7px;
+}
+
+#difficulty {
+  margin: 2px;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-weight: bold;
+}
+
+.difficultyBtn {
+  font-family: 'Oswald', sans-serif;
+  font-size: 20px;
+  font-weight: bold;
+  color: white;
+  margin: 5px;
+  padding: 8px;
+  width: 100px;
+  border-radius: 7px;
+  cursor: pointer;
+  border: 2px solid var(--primaryBlue);
+}
+
+#ez {
+  background-color: var(--green);
+}
+
+#ez:hover {
+  background-color: var(--secondary-green);
+}
+
+#med {
+  background-color: var(--orange);
+}
+
+#med:hover {
+  background-color: var(--secondary-orange);
+}
+
+#hard {
+  background-color: var(--error);
+}
+
+#hard:hover {
+  background-color: var(--red);
+}
+
+.questions {
+  position: relative;
+}
+
+.questions h3 {
+  font-family: 'Oswald';
+  font-weight: bold;
+  font-size: 35px;
+  text-align: center;
+}
+
+.playBtn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: auto;
+  padding: 5px;
+  font-family: 'Oswald';
+  font-weight: bold;
+  font-size: 23px;
+  width: fit-content;
+  background-color: var(--primaryBlue);
+  border-radius: 8px;
+  color: white;
+  cursor: pointer;
+}
+
+.playBtn:hover {
+  background-color: #3B82F6;
+}
+
+.answers {
+  display: flex;
+  margin: auto;
+  margin-top: 10px;
+  flex-direction: column;
+  width: 48%;
+}
+
+.btnWrapper {
+  display: flex;
+  justify-content: space-between;
+}
+
+.answers input {
+  font-family: 'Noto Sans';
+  font-size: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding: 8px;
+  border: 2px solid var(--secondaryBlue);
+  border-radius: 6px;
+}
+
+.answers input:focus {
+  outline: none !important;
+  border:3px solid var(--primaryBlue);
+  box-shadow: 0 0 10px #719ECE;
+}
+
+.answers button {
+  width: 43%;
+  font-family: 'Oswald';
+  font-weight: bold;
+  font-size: 18px;
+  padding: 6px;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.outlinedBtn {
+  border: 2px solid var(--primaryBlue);
+  color: var(--primaryBlue);
+  background-color: transparent;
+}
+
+.outlinedBtn:hover {
+  background-color: #F1F5F9;
+}
+
+.nonOutlinedBtn {
+  border: none;
+  background-color: var(--primaryBlue);
+  color: white;
+}
+
+.nonOutlinedBtn:hover {
+  background-color: #3B82F6;
+}
+
+.hint {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border: 2px solid var(--primaryBlue);
+  width: 68%;
+  margin: auto;
+  margin-top: 30px;
+  padding: 8px;
+}
+
+.hint h3 {
+  font-family: 'Oswald';
+  font-weight: bold;
+}
+
+.hint button {
+  margin-top: 5px;
+  padding: 8px;
+  border: none;
+  font-family: 'Oswald';
+  font-size: 14px;
+  border-radius: 4px;
+  background-color: var(--primaryBlue);
+  color: white;
+  cursor: pointer;
+}
+
+.hint button:hover {
+  background-color: #3B82F6;
+}
+
+.showHint {
+  font-family: 'Noto Sans', sans-serif;
+  font-weight: normal;
+  margin-top: 8px;
+  font-size: 14px;
+}
+
+.showHint b {
+  font-family: 'Oswald';
+  font-size: 17px;
+}

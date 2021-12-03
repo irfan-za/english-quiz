@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang='id'>
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE-edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='quiz.css'>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Oswald:wght@400;500&display=swap" rel="stylesheet">
+    <title>Quiz</title>
+  </head>
+  <body>
+    <header>
+      <h1>English Quiz</h1>
+    </header>
+
+    <main>
+      <div class='wrapper' id='wrapper'> <!-- Quiz wrapper -->
+        <div id='difficulty'>
+          <h1>Choose the difficulty!</h1>
+          <div>
+            <button class='difficultyBtn' id='ez' onclick='handleEasyBtn()'>Easy</button>
+            <button class='difficultyBtn' id='med'>Medium</button>
+            <button class='difficultyBtn' id='hard'>Hard</button>
+          </div>
+        </div>
+
+        <div id='main'>
+          <div class='topInfo'>
+            <p id='scoreInfo' class="score"></p>
+            <div class="timer">
+              <p>Time left:</p>
+              <p id='timer'>05:00</p>
+            </div>
+          </div>
+
+          <div id='questions' class='questions'>
+            <h3>Spell the word from the audio!</h3>
+            <div class='playBtn' onclick='playAudio()'>
+              <img src='./image/playBtn.png' alt='Play button' width='30px' />
+              <p>Play Audio</p>
+            </div>
+          </div>
+
+          <form class='answers' onsubmit='handleSubmit(event)'>
+            <input id='answers' type='text' placeholder='Write your answer here' onchange='handleChange(event)' />
+            <div class='btnWrapper'>
+              <button type='submit' class='nonOutlinedBtn'>Submit</button>
+              <button type='reset' class='outlinedBtn'>Reset</button>
+            </div>
+          </form>
+
+          <div id='hintWrapper' class='hint'>
+            <h3>Get stuck? Get a hint here :)</h3>
+            <button id='hint' onclick='showHint()'>Please help</button>
+            <p id='showHint' class='showHint'></p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <script src='script.js'></script>
+  </body>
+</html>
