@@ -10,7 +10,10 @@
 }
 
 * {
+  margin: 0;
+  padding: 0;
   box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
 main h1, h2, h3, h4, h5, h6, p {
@@ -18,23 +21,32 @@ main h1, h2, h3, h4, h5, h6, p {
 }
 
 body {
-  margin: 0;
-  padding: 0;
+  width: 100%;
+  height: 100vh;
+  color: #fff;
+  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
+  background-size: 400% 400%;
+  position: relative;
+  animation: change 10s ease-in-out infinite ;
 }
 
 main {
-  padding: 10px;
+  height: 100vh;
+  width: 100%;
+  max-width: 1024px;
+  margin-left: auto;
+  margin-right: auto;
+  /* border: 2px solid red; */
 }
 
 header {
   text-align: center;
-  font-size: 12px;
-  color: white;
-  width: 100vw;
-  background-color: var(--primaryBlue);
-  padding: 2px;
+  background: rgba(136, 136, 136, 0.582);
+  border-radius: 14px;
+  color: #F4A104;
+  margin-top: 10px;
+  padding: 10px 0 10px 0;
 }
-
 .wrapper {
   position: relative;
   margin: auto;
@@ -45,7 +57,6 @@ header {
   border-radius: 8px;
   box-shadow: 0 0 8px black;
 }
-
 .topInfo {
   display: flex;
   justify-content: space-between;
@@ -247,4 +258,18 @@ header {
 .showHint b {
   font-family: 'Oswald';
   font-size: 17px;
+}
+
+
+/* Animasi background */
+@keyframes change {
+  0%{
+      background-position: 0 50%;
+  }
+  50%{
+      background-position: 100% 50%;
+  }
+  100%{
+      background-position: 0 50%;
+  }
 }
