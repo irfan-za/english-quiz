@@ -2,11 +2,15 @@
   --primaryBlue: #0066cc;
   --secondaryBlue: #3DB2FF;
   --error: #ff0000;
-  --red: #FF5C58;
-  --green: #21BF73;
-  --secondary-green: #4E9F3D;
-  --orange: #FF7800;
-  --secondary-orange: #FF5403;
+  --red: rgb(219, 47, 28);
+  --green: #1bce57;
+  /* theme ku */
+  --orange: #dd9b21;
+  --green-transparent: rgba(27, 206, 87, 0.3);
+  --orange-transparent: rgba(221, 155, 33, 0.3);
+  --red-transparent: rgba(219, 47, 28, 0.3);
+  --dark:#141414;
+  --gray: #333333;
 }
 
 * {
@@ -23,40 +27,90 @@ main h1, h2, h3, h4, h5, h6, p {
 body {
   width: 100%;
   height: 100vh;
-  color: #fff;
-  background: linear-gradient(-45deg, #EE7752, #E73C7E, #23A6D5, #23D5AB);
-  background-size: 400% 400%;
-  position: relative;
-  animation: change 10s ease-in-out infinite ;
+  background: var(--dark);
+  overflow: hidden;
 }
 
 main {
-  height: 100vh;
+  height: 100%;
   width: 100%;
   max-width: 1024px;
   margin-left: auto;
   margin-right: auto;
-  /* border: 2px solid red; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 }
 
 header {
   text-align: center;
+  width: 100%;
   background: rgba(136, 136, 136, 0.582);
-  border-radius: 14px;
-  color: #F4A104;
+  backdrop-filter: blur(10px) saturate(168%);
+  -webkit-backdrop-filter: blur(10px) saturate(168%);
+  border-radius: 10px;
+  color: #fff;
   margin-top: 10px;
   padding: 10px 0 10px 0;
 }
-.wrapper {
-  position: relative;
-  margin: auto;
-  margin-top: 190px;
-  padding: 7px;
-  width: 50%;
-  border: 2px solid gray;
-  border-radius: 8px;
-  box-shadow: 0 0 8px black;
+h1>span{
+  color:var(--orange);
 }
+.wrapper {
+  width: 50%;
+  min-width: 390px;
+  height: 200px;
+  color: var(--dark);
+  backdrop-filter: blur(10px) saturate(168%);
+  -webkit-backdrop-filter: blur(10px) saturate(168%);
+  background-color: rgba(173, 173, 173, 0.562);
+  border-radius: 12px;
+  border: 1px solid rgba(209, 213, 219, 0.3);
+}
+/* bubble */
+.bubble{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -10;
+}
+.bubble div{
+  background: var(--orange);
+  border-radius: 100%;
+}
+.bubble div:nth-child(1){
+  position: absolute;
+  top: -10%;
+  left: -5%;
+  width: 300px;
+  height: 300px;
+}
+.bubble div:nth-child(2){
+  position: absolute;
+  bottom: -10%;
+  right: -5%;
+  width: 300px;
+  height: 300px;
+}
+.bubble div:nth-child(3){
+  position: absolute;
+  top: 18%;
+  right: 15%;
+  width: 50px;
+  height: 50px;
+}
+.bubble div:nth-child(4){
+  position: absolute;
+  top: 58%;
+  right: 60%;
+  width: 100px;
+  height: 100px;
+}
+
+/* akhir bubble */
 .topInfo {
   display: flex;
   justify-content: space-between;
@@ -82,48 +136,53 @@ header {
 }
 
 #difficulty {
-  margin: 2px;
-  text-align: center;
-  font-family: 'Oswald', sans-serif;
-  font-weight: bold;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .difficultyBtn {
-  font-family: 'Oswald', sans-serif;
   font-size: 20px;
-  font-weight: bold;
   color: white;
-  margin: 5px;
-  padding: 8px;
-  width: 100px;
-  border-radius: 7px;
+  padding: 5px 0px 5px 0px;
+  width: 120px;
+  border-radius: 10px;
   cursor: pointer;
-  border: 2px solid var(--primaryBlue);
+  border: none;
+  outline: none;
+  transition: 0.5s ease;
+  margin-right: 5px;
 }
 
 #ez {
-  background-color: var(--green);
+  background:var(--green-transparent);
+  border:2px solid var(--green);
 }
 
 #ez:hover {
-  background-color: var(--secondary-green);
+  background-color: var(--green);
 }
 
 #med {
-  background-color: var(--orange);
+  background:var(--orange-transparent);
+  border:2px solid var(--orange);
 }
 
 #med:hover {
-  background-color: var(--secondary-orange);
+  background-color: var(--orange);
 }
-
 #hard {
-  background-color: var(--error);
+  background:var(--red-transparent);
+  border:2px solid var(--red);
 }
 
 #hard:hover {
   background-color: var(--red);
 }
+
 
 .questions {
   position: relative;
@@ -272,4 +331,17 @@ header {
   100%{
       background-position: 0 50%;
   }
+}
+
+/* animasi bubble */
+@keyframes animate {
+  0%{
+      transform: scale(0) translateY(0) rotate(0);
+      opacity: 1;
+  }
+  100%{
+      transform: scale(1.3) translateY(-290px) rotate(360deg);
+      opacity: 0;
+  }
+
 }

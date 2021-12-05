@@ -1,6 +1,7 @@
 :root{
   --dark:#141414;
   --gray: #333333;
+  --orange: #F4A104;
 }
 *{
   margin: 0;
@@ -34,7 +35,7 @@ h1{
   font-size: 64px;
 }
 span{
-  color: #F4A104;
+  color: var(--orange);
 }
 #a,#b,#c,#d,#e{
   color: var(--gray);
@@ -60,7 +61,7 @@ span{
   font-weight: bold;
   padding: 5px 25px 5px 25px;
   color: #fff;
-  background: #F4A104;
+  background: var(--orange);
   border:none;
   border-radius: 10px;
   box-shadow: 0 7px 0 #ce8600;
@@ -81,7 +82,7 @@ span{
   letter-spacing: 4px;
   display: none;
   position: absolute;
-  color: #F4A104;
+  color: var(--orange);
   top: 0;
   background: rgba(0, 0, 0, 0.699);
 }
@@ -100,26 +101,26 @@ span{
 
 @keyframes a {
   0%{
-    color:#F4A104
+    color:var(--orange)
   }
 }
 @keyframes b {
   40%{
-    color:#F4A104
+    color:var(--orange)
   }
 }
 @keyframes c {
   60%{
-    color:#F4A104
+    color:var(--orange)
   }
 }
 @keyframes d {
   80%{
-    color:#F4A104
+    color:var(--orange)
   }
 }
 @keyframes e {
   100%{
-    color:#F4A104
+    color:var(--orange)
   }
 }
