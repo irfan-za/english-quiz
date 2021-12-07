@@ -43,7 +43,6 @@ const ezHint = {
   language: 'a system of communication used by a particular country or community.',
   burning: 'very hot or bright.'
 }
-
 // Initializing element
 const wrapper = document.getElementById('wrapper')
 const main = document.getElementById('main')

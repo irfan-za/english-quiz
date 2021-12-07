@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>English Quiz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <div></div>
+    <div class="mid">
+      <div>
+        <h1>English <span>Quiz</span></h1>
+        <p class="atas"><span id="a">Check</span> <span id="b">your</span> <span id="c">english</span> <span id="d">skill</span> <span id="e">now!</span></p>
+      </div>
+      <div class="kanan">
+        <img src="svg/icon.svg" alt="Icon Quiz">
+      </div>
+    </div>
+    <div class="bwh">
+      <button class="scroll" onclick=loading() >START</button>
+    </div>
+  </div>
+
+  <div id="cover">
+    <img src="svg/Q.svg" alt="icon loading">
+    loading...     
+  </div>
+  
+  <!-- hidden link -->
+  <a href="/quiz/index.html" id="choose" hidden></a>
+</body>
+<script>
+  const loading=()=>{
+    document.getElementById("cover").style.display="flex"
+    setTimeout(() => {
+      document.getElementById("choose").click()
+    }, 4000);
+
+  }
+</script>
+</html>
