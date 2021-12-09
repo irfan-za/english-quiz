@@ -54,7 +54,7 @@ span{
 .bwh{
   width: 100%;
   text-align: center;
-  margin-bottom: 36px;
+  margin-bottom: 46px;
 }
 .scroll{
   font-size: 24px;
@@ -90,7 +90,7 @@ span{
   stroke-dasharray: 160;
   animation: dash 4s linear;
 }
-
+/* Q loading animation */
 @keyframes dash {
   to {
     stroke-dashoffset: 320;
@@ -98,7 +98,7 @@ span{
 }
 
 
-
+/* text animation */
 @keyframes a {
   0%{
     color:var(--orange)
@@ -122,5 +122,30 @@ span{
 @keyframes e {
   100%{
     color:var(--orange)
+  }
+}
+
+@media screen and (max-width:768px) {
+  .container{
+    justify-content: space-around;
+  }
+  h1{
+    font-size: 44px;
+  }
+ .atas{
+    font-size: 18px;
+    margin-top: 0;
+  }
+  #tambahan{
+    display: none;
+  }
+  .mid{
+    border: 2px solid red;
+    flex-direction: column;
+    height: 50%;
+  }
+  .kanan img{
+    margin-top: 30%;
+    width: 230px;
   }
 }
