@@ -1,7 +1,7 @@
 :root{
   --dark:#141414;
   --gray: #333333;
-  --orange: #F4A104;
+  --orange: #FCA604;
 }
 *{
   margin: 0;
@@ -40,11 +40,11 @@ span{
 #a,#b,#c,#d,#e{
   color: var(--gray);
 }
-#a{  animation: a 5s ease-in-out infinite;}
-#b{  animation: b 5s ease-in-out infinite;}
-#c{  animation: c 5s ease-in-out infinite;}
-#d{  animation: d 5s ease-in-out infinite;}
-#e{  animation: e 5s ease-in-out infinite;}
+#a{  animation: a 5s ease infinite;}
+#b{  animation: b 5s ease infinite;}
+#c{  animation: c 5s ease infinite;}
+#d{  animation: d 5s ease infinite;}
+#e{  animation: e 5s ease infinite;}
 .atas{
   margin-top: 4px;
   font-size: 24px;
@@ -66,6 +66,7 @@ span{
   border-radius: 10px;
   box-shadow: 0 7px 0 #ce8600;
   cursor: pointer;
+  outline: none;
 }
 .scroll:active{
   outline: none;
@@ -88,7 +89,7 @@ span{
 }
 .path {
   stroke-dasharray: 160;
-  animation: dash 4s linear;
+  animation: dash 1.7s linear;
 }
 /* Q loading animation */
 @keyframes dash {
@@ -140,7 +141,6 @@ span{
     display: none;
   }
   .mid{
-    border: 2px solid red;
     flex-direction: column;
     height: 50%;
   }

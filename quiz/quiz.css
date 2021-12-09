@@ -23,10 +23,9 @@ body {
   width: 100%;
   height: 100vh;
   background: var(--dark);
+  overflow: hidden;
 }
-
 main {
-  border: 2px solid red;
   height: 100%;
   width: 100%;
   max-width: 1024px;
@@ -107,7 +106,6 @@ h1>span{
 }
 
 #difficulty {
-  border: 2px solid var(--blue);
   margin: 40px 0 40px 0;
   display: flex;
   flex-direction: column;
@@ -364,7 +362,6 @@ h1>span{
     min-width: 0;
   }
   .tengah{
-    border:2px solid greenyellow;
     flex:1;
     flex-direction: column-reverse;
     justify-content: center;
