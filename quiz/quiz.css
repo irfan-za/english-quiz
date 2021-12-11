@@ -414,11 +414,11 @@ h1>span{
     display: none;
   }
   .bubble div:nth-child(1){
-    top: -25%;
-    left: -30%;
+    top: -30%;
+    left: -35%;
   }
   .bubble div:nth-child(2){
-    bottom: -25%;
+    bottom: -30%;
     right: -30%;
   }  
 }
