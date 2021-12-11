@@ -413,4 +413,12 @@ h1>span{
   .tambahan{
     display: none;
   }
+  .bubble div:nth-child(1){
+    top: -25%;
+    left: -30%;
+  }
+  .bubble div:nth-child(2){
+    bottom: -25%;
+    right: -30%;
+  }  
 }
