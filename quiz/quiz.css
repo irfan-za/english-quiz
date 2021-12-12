@@ -221,19 +221,24 @@ h1>span{
   box-shadow: 0 0 10px #719ECE;
 }
 
-.answers button {
+.btnWrapper button {
   font-size: 18px;
-  padding: 6px;
+  padding: 1px 8px;
   cursor: pointer;
   border-radius: 6px;
+  transition: 0.3s ease;
 }
-.reset{
-  background: transparent;
+.btnWrapper .reset{
+  background: var(--blue-transparent);
   outline: none;
-  border: none;
+  color: #fff;
+  border: 2px solid var(--blue);
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.btnWrapper .reset:hover{
+  background-color: var(--blue);
 }
 
 .nonOutlinedBtn {
