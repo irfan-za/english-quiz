@@ -89,7 +89,7 @@ span{
 }
 .path {
   stroke-dasharray: 160;
-  animation: dash 1.7s linear;
+  animation: dash 1.7s linear infinite;
 }
 /* Q loading animation */
 @keyframes dash {
