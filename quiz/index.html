@@ -20,21 +20,21 @@
          <!-- score -->
          <div id="previousScore">
           <h2>Your Previous Score</h2>
-          <table border="1">
+          <table border="1" style="color:white;">
             <tr>
-              <th style="width: 120px; background-color: #147ee7; color: white; font-weight: 600;">Difficulty</th>
-              <th style="width: 210px; background-color: #147ee7; color: white; font-weight: 600;">Score</th>
+              <th style="width: 120px; background-color: #147ee7; font-weight: 600;">Difficulty</th>
+              <th style="width: 210px; background-color: #147ee7; font-weight: 600;">Score</th>
             </tr>
             <tr>
-              <th scope="row" style="background-color: #1bce574d; color: white;">Easy</th>
+              <th scope="row" style="background-color: #1bce574d;">Easy</th>
               <td id="ezScore"></td>
             </tr>
             <tr>
-              <th scope="row" style="background-color: #dd9b214d; color: white;">Medium</th>
+              <th scope="row" style="background-color: #dd9b214d;">Medium</th>
               <td id="medScore"></td>
             </tr>
             <tr>
-              <th scope="row" style="background-color: #db2f1c4d; color: white;">Hard</th>
+              <th scope="row" style="background-color: #db2f1c4d;">Hard</th>
               <td id="hardScore"></td>
             </tr>
           </table>
@@ -46,8 +46,8 @@
             <h1>Choose the difficulty!</h1>
             <div>
               <button class='difficultyBtn' id='ez' onclick='handleEasyBtn()'>Easy</button>
-              <button class='difficultyBtn' id='med'>Medium</button>
-              <button class='difficultyBtn' id='hard'>Hard</button>
+              <button class='difficultyBtn' id='med' onclick='handleMedBtn()'>Medium</button>
+              <button class='difficultyBtn' id='hard' onclick='handleHardBtn()'>Hard</button>
             </div>
           </div>
   <!-- beda page -->
@@ -69,7 +69,7 @@
             </div>
   
             <form class='answers' onsubmit='handleSubmit(event)'>
-              <input id='answers' type='text' placeholder='Write your answer here' onchange='handleChange(event)' />
+              <input id='answers' type='text' placeholder='Write your answer here' autocomplete="off" onchange='handleChange(event)' />
               <div class='btnWrapper'>
                 <button type='submit' class='nonOutlinedBtn'>Submit</button>
                 <button type='reset' class="reset">reset</button>
