@@ -166,7 +166,7 @@ const answered = []
 wrapper.removeChild(main)
 
 // For timer
-let time = 1 // You can change the time here
+let time = 5 // You can change the time here
 let timeInMinutes = time * 60
 let interval = null
 
