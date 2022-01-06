@@ -41,7 +41,11 @@ main {
   padding: 25px;
   backdrop-filter: blur(10px) saturate(168%);
   border-radius: 12px;
-  text-align: center;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #previousScore h2 {
