@@ -197,6 +197,7 @@ const startTimer = () => {
  * Handling easy button click
  */
 const handleEasyBtn = () => {
+  prevScore.classList.add("previousScoreMobile")
   wrapper.removeChild(difficulty)
   wrapper.append(main)
   diff = 'easy'
@@ -209,6 +210,7 @@ const handleEasyBtn = () => {
  * Handling medium button click
  */
  const handleMedBtn = () => {
+  prevScore.classList.add("previousScoreMobile")
   wrapper.removeChild(difficulty)
   wrapper.append(main)
   diff = 'medium'
@@ -221,6 +223,7 @@ const handleEasyBtn = () => {
  * Handling hard button click
  */
  const handleHardBtn = () => {
+  prevScore.classList.add("previousScoreMobile")
   wrapper.removeChild(difficulty)
   wrapper.append(main)
   diff = 'hard'

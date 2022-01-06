@@ -451,6 +451,9 @@ h1>span{
     left: auto;
     width: 90%;
   }
+  #previousScore.previousScoreMobile{
+    top: 30em;
+  }
   #previousScore h2{
     font-size: 22px;
   }
