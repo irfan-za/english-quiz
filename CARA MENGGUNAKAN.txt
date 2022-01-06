@@ -1,0 +1,14 @@
+================ CARA MENGGUNAKAN ======================
+1. Buka file index.html pada folder guess-the-world-quiz di browser
+2. Atau bisa juga dengan klik disini => https://quiz09.netlify.app/quiz/index.html karena website kami telah dideploy di Internet.
+3. Setelah itu klik tombol start untuk menuju pada halaman quiz
+4. Setelah di halaman quiz, pilih levelnya
+5. Setelah itu klik play audio untuk memutar audio
+6. Isi Jawabanmu di kolom input
+7. Klik submit untuk mengirim jawabanmu.
+8. Setelah waktu berakhir skormu akan otomatis tersimpan di tabel previous score.
+
+================ ANGGOTA KELOMPOK ======================
+Muhammad Irfan Zahran L200210016
+Handi Dwi Cahyo L200210112
+Hanif Maulana Fadhiila Aziz L200210073
