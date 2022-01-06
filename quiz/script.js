@@ -139,6 +139,8 @@ const hardHint = {
 // Initializing element
 const wrapper = document.getElementById('wrapper')
 const main = document.getElementById('main')
+const prevScore = document.getElementById('previousScore')
+const quiz = document.getElementById('quiz')
 const difficulty = document.getElementById('difficulty')
 const audioSource = document.getElementById('audioSource')
 const input = document.getElementById('answers')
@@ -146,10 +148,10 @@ const hintWrapper = document.getElementById('hintWrapper')
 const hintBtn = document.getElementById('hint')
 const hint = document.getElementById('showHint')
 const scoreInfo = document.getElementById('scoreInfo')
-// table score
-const ezTable = document.querySelector("#ezScore")
-const medTable = document.querySelector("#medScore")
-const hardTable = document.querySelector("#hardScore")
+const Alert = document.getElementById('alert')
+const ezScore = document.getElementById('ezScore')
+const medScore = document.getElementById('medScore')
+const hardScore = document.getElementById('hardScore')
 let isLookAtHint = false
 
 // init variable
@@ -164,6 +166,9 @@ const answered = []
 
 // for the begining
 wrapper.removeChild(main)
+ezScore.innerText = localStorage.getItem('ezScore') ? localStorage.getItem('ezScore') : 'None'
+medScore.innerText = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : 'None'
+hardScore.innerText = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : 'None'
 
 // For timer
 let time = 5 // You can change the time here
@@ -199,21 +204,23 @@ const handleEasyBtn = () => {
   runQuiz()
   interval = setInterval(startTimer, 1000)
 }
+
 /**
- * Handling med button click
+ * Handling medium button click
  */
-const handleMedBtn = () => {
+ const handleMedBtn = () => {
   wrapper.removeChild(difficulty)
   wrapper.append(main)
-  diff = 'med'
+  diff = 'medium'
 
   runQuiz()
   interval = setInterval(startTimer, 1000)
 }
+
 /**
  * Handling hard button click
  */
-const handleHardBtn = () => {
+ const handleHardBtn = () => {
   wrapper.removeChild(difficulty)
   wrapper.append(main)
   diff = 'hard'
@@ -229,13 +236,15 @@ const showHint = () => {
   isLookAtHint = true
   hintWrapper.removeChild(hintBtn)
   switch(diff) {
-    case 'easy': hint.innerHTML = `<b>Hint:</b> ${ezHint[currentQuestion]}`
-  }
-  switch(diff) {
-    case 'med': hint.innerHTML = `<b>Hint:</b> ${medHint[currentQuestion]}`
-  }
-  switch(diff) {
-    case 'hard': hint.innerHTML = `<b>Hint:</b> ${hardHint[currentQuestion]}`
+    case 'easy':
+      hint.innerHTML = `<b>Hint:</b> ${ezHint[currentQuestion]}`
+      break
+    case 'medium':
+      hint.innerHTML = `<b>Hint:</b> ${medHint[currentQuestion]}`
+      break
+    case 'hard':
+      hint.innerHTML = `<b>Hint:</b> ${hardHint[currentQuestion]}`
+      break
   }
 }
 
@@ -246,19 +255,15 @@ const runQuiz = () => {
   const question = getDifficultyQuestion(diff)
   scoreInfo.innerText = `Your score: ${score}`
   switch(diff) {
-    case 'easy': {
+    case 'easy':
       currentQuestion = keys(ezQuestions)[question]
-    }
-  }
-  switch(diff) {
-    case 'med': {
+      break
+    case 'medium':
       currentQuestion = keys(medQuestions)[question]
-    }
-  }
-  switch(diff) {
-    case 'hard': {
+      break
+    case 'hard':
       currentQuestion = keys(hardQuestions)[question]
-    }
+      break
   }
 }
 
@@ -278,22 +283,17 @@ const getDifficultyQuestion = () => {
     idx = random()
   }
   answered.push(idx)
-  console.log(answered)
 
   switch(diff) {
-    case 'easy': {
+    case 'easy':
       audio = new Audio(values(ezQuestions)[idx])
-    }
-  }
-  switch(diff) {
-    case 'med': {
+      break
+    case 'medium':
       audio = new Audio(values(medQuestions)[idx])
-    }
-  }
-  switch(diff) {
-    case 'hard': {
+      break
+    case 'hard':
       audio = new Audio(values(hardQuestions)[idx])
-    }
+      break
   }
 
   return idx
@@ -314,18 +314,93 @@ const handleChange = (e) => {
   answers = e.target.value
 }
 
-// finishing quiz
+/**
+ * To call alert
+ * @param {boolean} isCorrect
+ * @returns
+ */
+const callAlert = (isCorrect = true, isFinished = false) => {
+  let alertAudio = isCorrect
+    ? new Audio('https://www.myinstants.com/media/sounds/correct_uQ7Arvh.mp3')
+    : new Audio('https://www.myinstants.com/media/sounds/spongebob-disappointed-sound-effect.mp3')
+
+  setTimeout(() => {
+    Alert.setAttribute('class', 'alert animateOut')
+    Alert.innerHTML = ''
+  }, 3800)
+  Alert.setAttribute('class', 'alert animateIn')
+
+  if (isFinished) {
+    new Audio('https://www.myinstants.com/media/sounds/kids_cheering.mp3').play()
+    Alert.setAttribute('style', 'background-color: #21BF73;')
+    Alert.innerHTML =
+    `<div>
+      <svg xmlns="http://www.w3.org/2000/svg" style="height: 35px;" fill="none" viewBox="0 0 24 24" stroke="white">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3>You have finished the quiz!</h3>
+    </div>
+    <p>Good job! Your score was ${score}! Thank you for playing!</p>`
+
+    return
+  }
+
+  alertAudio.play()
+
+  if (isCorrect) {
+    Alert.setAttribute('style', 'background-color: #21BF73;')
+    Alert.innerHTML =
+    `<div>
+      <svg xmlns="http://www.w3.org/2000/svg" style="height: 35px;" fill="none" viewBox="0 0 24 24" stroke="white">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3>You are correct!</h3>
+    </div>
+    <p>Keep up the good work!</p>`
+  } else {
+    Alert.setAttribute('style', 'background-color: #ff0000;')
+    Alert.innerHTML =
+    `<div>
+      <svg xmlns="http://www.w3.org/2000/svg" style="height: 35px;" fill="none" viewBox="0 0 24 24" stroke="white">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+      </svg>
+      <h3>You are wrong!</h3>
+    </div>
+    <p>Nice try! You can try again</p>`
+  }
+}
+
+const loading = () => {
+  setTimeout(() => {
+    main.removeAttribute('class')
+    main.innerHTML = ''
+    main.appendChild(quiz)
+    runQuiz()
+  }, 3500)
+
+  main.setAttribute('class', 'loading')
+  main.removeChild(quiz)
+  main.innerHTML = `
+  <svg xmlns="http://www.w3.org/2000/svg" style='height: 50px;' class='spin' viewBox="0 0 20 20" fill="currentColor">
+    <path fill-rule="evenodd" d="M4 2a1 1 0 011 1v2.101a7.002 7.002 0 0111.601 2.566 1 1 0 11-1.885.666A5.002 5.002 0 005.999 7H9a1 1 0 010 2H4a1 1 0 01-1-1V3a1 1 0 011-1zm.008 9.057a1 1 0 011.276.61A5.002 5.002 0 0014.001 13H11a1 1 0 110-2h5a1 1 0 011 1v5a1 1 0 11-2 0v-2.101a7.002 7.002 0 01-11.601-2.566 1 1 0 01.61-1.276z" clip-rule="evenodd" />
+  </svg>
+  <p style="margin-left: 10px;">Getting next question... please Wait</p>`
+}
+
+/**
+ * Finishing quiz
+ */
 const finishQuiz = () => {
   setTimeout(() => {
     location.reload()
   }, 3900)
-  alert(`Good job!\nYour score is ${score}\nThankyou for playing :)`)
+  callAlert(null, true)
 
   switch(diff) { // Insert the score to local storage
     case 'easy':
       localStorage.setItem('ezScore', score)
       break
-    case 'med':
+    case 'medium':
       localStorage.setItem('medScore', score)
       break
     case 'hard':
@@ -333,19 +408,19 @@ const finishQuiz = () => {
       break
   }
 }
+
 /**
  * Handling submit
  * @param {Event} e
  */
 const handleSubmit = (e) => {
   e.preventDefault()
-  if (page < 10) {
+  if (page <= 10) {
     if (answers.toLowerCase() === currentQuestion.toLowerCase()) {
-      alert('Bener cuy')
+      callAlert(isCorrect = true)
       score += 10
-    } 
-    else {
-      alert('Salah bro')
+    } else {
+      callAlert(isCorrect = false)
     }
 
     input.value = ''
@@ -357,12 +432,9 @@ const handleSubmit = (e) => {
     }
 
     page++
-    runQuiz()
-    console.log(page, `Hasil score: ${score}`)
+    loading()
+    return
   }
-}
 
-// set Table score value
-ezTable.innerHTML=localStorage.getItem("ezScore")
-medTable.innerHTML=localStorage.getItem("medScore")
-hardTable.innerHTML=localStorage.getItem("hardScore")
+  finishQuiz()
+}
