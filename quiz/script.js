@@ -1,3 +1,25 @@
+async function fetchEzQuestions(level) {
+  let data;
+  const response = await fetch(`${proccess.env.API_URL}?level=${level}`);
+  data = await response.json();
+  const totalQuestions=data.data.total;
+  console.log("total questions : " + totalQuestions);
+  if(totalQuestions>19 ){
+        const randomPages = Math.round(Math.random() * (Math.floor(totalQuestions/20)-1) + 1);
+        console.log(randomPages);
+        const response = await fetch(`${proccess.env.API_URL}?level=${level}&page=${randomPages}`);
+        data = await response.json();
+      }
+  console.log("current page : " + data.data.current_page);
+  return data;
+}
+
+
+
+// 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+// 🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥🔥
+
+
 const ezQuestions = {
   watch: 'https://ssl.gstatic.com/dictionary/static/sounds/oxford/watch--_gb_1.mp3',
   jeans: 'https://ssl.gstatic.com/dictionary/static/sounds/oxford/jeans--_gb_1.mp3',
@@ -163,12 +185,13 @@ let diff = ''
 let page = 1
 let score = 0
 const answered = []
+let res = fetchEzQuestions('easy');
 
 // for the begining
 wrapper.removeChild(main)
-ezScore.innerText = localStorage.getItem('ezScore') ? localStorage.getItem('ezScore') : 'None'
-medScore.innerText = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : 'None'
-hardScore.innerText = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : 'None'
+ezScore.innerText = localStorage.getItem('ezScore') ? localStorage.getItem('ezScore') : '0'
+medScore.innerText = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : '0'
+hardScore.innerText = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : '0'
 
 // For timer
 let time = 5 // You can change the time here
@@ -201,6 +224,7 @@ const handleEasyBtn = () => {
   wrapper.removeChild(difficulty)
   wrapper.append(main)
   diff = 'easy'
+  res = fetchEzQuestions(diff);
 
   runQuiz()
   interval = setInterval(startTimer, 1000)
@@ -214,6 +238,7 @@ const handleEasyBtn = () => {
   wrapper.removeChild(difficulty)
   wrapper.append(main)
   diff = 'medium'
+  res = fetchEzQuestions('medium');
 
   runQuiz()
   interval = setInterval(startTimer, 1000)
@@ -227,6 +252,7 @@ const handleEasyBtn = () => {
   wrapper.removeChild(difficulty)
   wrapper.append(main)
   diff = 'hard'
+  res = fetchEzQuestions(diff);
 
   runQuiz()
   interval = setInterval(startTimer, 1000)
@@ -236,17 +262,28 @@ const handleEasyBtn = () => {
  * Handling show hint
  */
 const showHint = () => {
+  const question = getDifficultyQuestion(diff)
+  console.log(question);
   isLookAtHint = true
   hintWrapper.removeChild(hintBtn)
+  const showHintText =()=> {
+    res.then(({data}) => {
+      data.data.map((data, i) => {
+        if(data.question === currentQuestion){
+          hint.innerHTML = `<b>Hint:</b> ${data.hint}`
+        }
+      })
+    })
+  }
   switch(diff) {
     case 'easy':
-      hint.innerHTML = `<b>Hint:</b> ${ezHint[currentQuestion]}`
+      showHintText();
       break
     case 'medium':
-      hint.innerHTML = `<b>Hint:</b> ${medHint[currentQuestion]}`
+      showHintText();
       break
     case 'hard':
-      hint.innerHTML = `<b>Hint:</b> ${hardHint[currentQuestion]}`
+      showHintText();
       break
   }
 }
@@ -257,21 +294,35 @@ const showHint = () => {
 const runQuiz = () => {
   const question = getDifficultyQuestion(diff)
   scoreInfo.innerText = `Your score: ${score}`
+
+  const showQuestion =()=>{
+      res.then(({data})=>{
+      currentQuestion = data.data[question]?.question;
+      console.log("🔥 current question : "+currentQuestion);
+    });
+  }
   switch(diff) {
     case 'easy':
-      currentQuestion = keys(ezQuestions)[question]
+      showQuestion();
       break
     case 'medium':
-      currentQuestion = keys(medQuestions)[question]
+      showQuestion();
       break
     case 'hard':
-      currentQuestion = keys(hardQuestions)[question]
+      showQuestion();
       break
   }
 }
 
 const random = () => {
-  return Math.floor(Math.random() * keys(ezQuestions).length)
+  // by default jumlah soal 20
+  let questionsLength=4;
+  res.then(({data})=>{
+      console.log('soal :');
+      questionsLength= data.data.length;
+    });
+    console.log(questionsLength);
+  return Math.floor(Math.random() * questionsLength)
 }
 /**
  * Handling get question by difficulty
@@ -286,16 +337,21 @@ const getDifficultyQuestion = () => {
     idx = random()
   }
   answered.push(idx)
-
+  const showSoundUrl =()=> {
+      res.then(({data})=>{
+      console.log('idx='+idx);
+      audio = new Audio(data.data[idx].sound_url)
+    });
+  }
   switch(diff) {
     case 'easy':
-      audio = new Audio(values(ezQuestions)[idx])
+      showSoundUrl();
       break
     case 'medium':
-      audio = new Audio(values(medQuestions)[idx])
+      showSoundUrl();
       break
     case 'hard':
-      audio = new Audio(values(hardQuestions)[idx])
+      showSoundUrl();
       break
   }
 
