@@ -1,0 +1,89 @@
+
+.previousScore {
+  background-color: rgba(173, 173, 173, 0.562);
+  backdrop-filter: blur(10px) saturate(168%);
+}
+
+.header {
+  background: rgba(136, 136, 136, 0.582);
+  backdrop-filter: blur(10px) saturate(168%);
+  -webkit-backdrop-filter: blur(10px) saturate(168%);
+}
+
+.wrapper {
+  backdrop-filter: blur(10px) saturate(168%);
+  -webkit-backdrop-filter: blur(10px) saturate(168%);
+  background-color: rgba(173, 173, 173, 0.562);
+  border: 1px solid rgba(209, 213, 219, 0.3);
+}
+
+.btnWrapper button {
+  cursor: pointer;
+  border-radius: 6px;
+  transition: 0.3s ease;
+}
+
+
+.alert {
+  transform: translate(-50%, -50%);
+  font-family: 'Oswald';
+  box-shadow: 0 0 12px 3px rgba(0, 0, 0, 0.5);
+}
+
+.animateIn {
+  animation: SlideDown 0.5s;
+  animation-fill-mode: forwards;
+}
+
+.animateOut {
+  animation: SlideUp 0.5s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes SlideDown {
+  0% {
+    margin-top: -120%;
+  }
+
+  100% {
+    margin-top: 0
+  }
+}
+
+@keyframes SlideUp {
+  0% {
+    margin-top: 0;
+  }
+
+  100% {
+    margin-top: -120%
+  }
+}
+
+.spin {
+  animation-name: spin;
+  animation-duration: 1100ms;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes spin {
+  from {
+      transform:rotate(360deg);
+  }
+  to {
+      transform:rotate(0deg);
+  }
+}
+
+
+
+@media screen and (max-width:768px) {
+ .main {
+    margin-top: 0;
+  }
+  .th{
+    padding: 4px;
+    font-size: 14px;
+  }
+}
