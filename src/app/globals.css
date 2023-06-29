@@ -80,7 +80,6 @@ span{
 .cover{
   color: var(--orange);
   background: rgba(0, 0, 0, 0.699);
-
 }
 .path {
   stroke-dasharray: 160;
