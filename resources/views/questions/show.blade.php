@@ -32,12 +32,18 @@
                   </table>
 
                   <br><br>
-                  <form action="{{route('questions.destroy', $question->id )}}" method="POST">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit">Hapus</button>
-                  </form>
+                  <div class="row border" >
+                    <form action="{{route('questions.destroy', $question->id )}}" method="POST">
+                      @csrf
+                      @method('DELETE')
+                      <button type="submit" class="danger">Hapus</button>
+                    </form>
+                    <a href="{{route('questions.edit', $question->id )}}" >
+                      <button class="warning" >Edit</button>
+                    </a>
+                  </div>
                   <br>
+
                   <a href="{{route('questions.index')}}">kembali ke daftar soal</a>
                 </div>
             </div>

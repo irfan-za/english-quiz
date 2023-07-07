@@ -14,10 +14,9 @@ return new class extends Migration
         Schema::create('scores', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('ez_score');
-            $table->string('med_score');
-            $table->string('hard_score');
-            $table->string('user_idFK');
+            $table->string('ez_score')->nullable();
+            $table->string('med_score')->nullable();
+            $table->string('hard_score')->nullable();
         });
     }
 

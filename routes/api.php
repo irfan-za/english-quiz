@@ -5,22 +5,16 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ScoreController;
 
-/*
-|--------------------------------------------------------------------------
-| API Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "api" middleware group. Make something great!
-|
-*/
-
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-// api url untuk question controller
-// http://localhost:8000/api/questions?level=easy&page=2
-Route::apiResource('questions', QuestionController::class);
-Route::apiResource('scores', ScoreController::class);
+
+// hanya memberikan akses Read untuk api question
+Route::get('questions', [QuestionController::class, 'index']);
+
+// api crud score
+Route::get('scores', [ScoreController::class, 'index']); // GET /api/scores
+Route::post('scores', [ScoreController::class, 'store']); // POST /api/scores
+// Route::put('scores/{id}', [ScoreController::class, 'update']); // PUT /api/scores/{id}
+// Route::delete('scores/{id}', [ScoreController::class, 'destroy']); // DELETE /api/scores/{id}

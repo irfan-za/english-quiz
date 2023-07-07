@@ -7,42 +7,45 @@ use Illuminate\Http\Request;
 
 class ScoreController extends Controller
 {
+    
     public function index()
     {
-        $scores= Score::latest()->get();
-        return response()->json([
-            'data'=>$scores
-        ]);
+        $scores = Score::all();
+        return response()->json($scores);
     }
 
     public function store(Request $request)
     {
-        $score = new Score();
-        $score->ez_score = request('ez_score');
-        $score->med_score = request('med_score');
-        $score->hard_score = request('hard_score');
-        $score->user_idFK = request('user_idFK');
-        $score->save();
-
-        return response()->json([
-            'data' => $score
-        ]);
+        $score = Score::create($request->all());
+        return response()->json($score, 201);
     }
 
     public function show($id)
     {
-        $score = Score::findOrFail($id);
-        return response()->json([
-            'data' => $score
-        ]);
+        $score = Score::find($id);
+        if (!$score) {
+            return response()->json(['message' => 'Score not found'], 404);
+        }
+        return response()->json($score);
+    }
+
+    public function update(Request $request, $id)
+    {
+        $score = Score::find($id);
+        if (!$score) {
+            return response()->json(['message' => 'Score not found'], 404);
+        }
+        $score->update($request->all());
+        return response()->json($score);
     }
 
     public function destroy($id)
     {
-        $score = Score::findOrFail($id);
+        $score = Score::find($id);
+        if (!$score) {
+            return response()->json(['message' => 'Score not found'], 404);
+        }
         $score->delete();
-        return response()->json([
-            'message' => 'Score Deleted!',
-        ],204);
+        return response()->json(['message' => 'Score deleted']);
     }
 }
