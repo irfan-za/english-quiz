@@ -78,8 +78,6 @@ export default function Quiz() {
   const { data:scoreFromDb, isScoreLoading, error:errorScore } = useSWR(`${process.env.API_URL}/scores`, scoreFetcher)
 
   const ezScore = scoreFromDb==undefined ? 0 : scoreFromDb[scoreFromDb.length-1]?.ez_score;
-  // const medScore = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : '0'
-  // const hardScore = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : '0'
 
 const answered = []
 
@@ -105,18 +103,7 @@ useEffect(() => {
 const resultRef= useRef(null)
 useEffect(() => {
   if(timer === 0){
-    switch(diff) { 
-      case 'easy':
-        saveScore(score)
-        // localStorage.setItem('ezScore', score)
-        break
-      // case 'medium':
-      //   localStorage.setItem('medScore', score)
-      //   break
-      // case 'hard':
-      //   localStorage.setItem('hardScore', score)
-      //   break
-    }
+    saveScore(score)
     setTimerStart(false)
     setIsFinished(true)
     callAlert()
@@ -192,19 +179,7 @@ const finishQuiz = () => {
   callAlert()
   // play finished audio
   new Audio('https://www.myinstants.com/media/sounds/kids_cheering.mp3').play()
-
-  switch(diff) { 
-    case 'easy':
-      saveScore(score)
-      // localStorage.setItem('ezScore', score)
-      break
-    // case 'medium':
-    //   localStorage.setItem('medScore', score)
-    //   break
-    // case 'hard':
-    //   localStorage.setItem('hardScore', score)
-    //   break
-  }
+  saveScore(score)
 }
 
 
@@ -284,7 +259,6 @@ if(isLoading) {
           <thead>
             <tr className='border border-slate-400'>
               <th className="p-2 font-normal w-[80px] bg-blue-500">
-              {/* Difficulty */}
               Your
               </th>
               <th className="p-2 font-normal w-[110px] bg-blue-500">Score</th>
@@ -293,7 +267,6 @@ if(isLoading) {
           <tbody>
             <tr className='border border-slate-400'>
               <th className="p-2 font-normal bg-green-500 bg-opacity-30" scope="row">
-              {/* Easy */}
               latest
               </th>
               <td>
@@ -305,14 +278,6 @@ if(isLoading) {
                 }
                 </td>
             </tr>
-            {/* <tr className='border border-slate-400'>
-              <th className="p-2 font-normal bg-orange-500 bg-opacity-30" scope="row">Medium</th>
-              <td>{medScore}</td>
-            </tr>
-            <tr className='border border-slate-400'>
-              <th className="p-2 font-normal bg-red-500 bg-opacity-30" scope="row">Hard</th>
-              <td>{hardScore}</td>
-            </tr> */}
           </tbody>
         </table>
       </div>
@@ -320,16 +285,12 @@ if(isLoading) {
         <div className={`mb-4 md:mb-0 ml-0 md:ml-24 w-[90%] min-w-min md:w-1/2 md:min-w-[390px] text-white rounded-[12px] ${styles.wrapper} ${mainLoading? 'mt-24' : ''}`} >
           <div className={`my-10 flex-col justify-center items-center ${showContent == 'difficulty' ? 'flex' : 'hidden'}`}>
             <h1 className='text-2xl' >
-            {/* Choose the difficulty! */}
             Are you ready?
             </h1>
             <div>
               <button className={`w-16 text-sm px-1 mt-5 md:text-xl text-white py-[5px] md:w-32 rounded-[10px] cursor-pointer outline-none mr-[5px] transition-colors duration-300 ease-in border-2 border-green-500 bg-green-500 bg-opacity-30 hover:bg-opacity-100 `} onClick={handleEasyBtn}>
-              {/* Easy */}
               Start
               </button>
-              {/* <button className={`w-16 text-sm px-1 mt-5 md:text-xl text-white py-[5px] md:w-32 rounded-[10px] cursor-pointer outline-none mr-[5px] transition-colors duration-300 ease-in border-2 border-orange-500 bg-orange-500 bg-opacity-30 hover:bg-opacity-100`}  onClick={handleMedBtn}>Medium</button>
-              <button className={`w-16 text-sm px-1 mt-5 md:text-xl text-white py-[5px] md:w-32 rounded-[10px] cursor-pointer outline-none mr-[5px] transition-colors duration-300 ease-in border-2 border-red-500 bg-red-500 bg-opacity-30 hover:bg-opacity-100`} onClick={handleHardBtn}>Hard</button> */}
             </div>
           </div>
 

@@ -14,8 +14,6 @@ export default function page() {
     const { data:scoreFromDb, isScoreLoading, error:errorScore } = useSWR(`${process.env.API_URL}/scores`, scoreFetcher)
 
     const ezScore = scoreFromDb==undefined ? 0 : scoreFromDb[scoreFromDb.length-1]?.ez_score;
-    // const medScore = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : '0'
-    // const hardScore = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : '0'
   return (
     <div className={`w-full h-full min-h-screen overflow-x-hidden`}>
     <header className={`text-center w-11/12 max-w-lg m-auto mt-3 mb-20 px-3 py-1 text-white rounded-xl ${styles.header}`}>
@@ -33,7 +31,6 @@ export default function page() {
           <thead>
             <tr className='border border-slate-400'>
               <th className="p-2 font-normal w-[80px] bg-blue-500">
-              {/* Difficulty */}
               Your
               </th>
               <th className="p-2 font-normal w-[110px] bg-blue-500">Score</th>
@@ -42,19 +39,10 @@ export default function page() {
           <tbody>
             <tr className='border border-slate-400'>
               <th className="p-2 font-normal bg-green-500 bg-opacity-30" scope="row">
-                {/* Easy */}
               latest
               </th>
               <td>{ezScore}</td>
             </tr>
-            {/* <tr className='border border-slate-400'>
-              <th className="p-2 font-normal bg-orange-500 bg-opacity-30" scope="row">Medium</th>
-              <td>{medScore}</td>
-            </tr>
-            <tr className='border border-slate-400'>
-              <th className="p-2 font-normal bg-red-500 bg-opacity-30" scope="row">Hard</th>
-              <td>{hardScore}</td>
-            </tr> */}
           </tbody>
         </table>
       </div>
