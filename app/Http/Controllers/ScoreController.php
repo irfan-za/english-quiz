@@ -20,32 +20,4 @@ class ScoreController extends Controller
         return response()->json($score, 201);
     }
 
-    public function show($id)
-    {
-        $score = Score::find($id);
-        if (!$score) {
-            return response()->json(['message' => 'Score not found'], 404);
-        }
-        return response()->json($score);
-    }
-
-    public function update(Request $request, $id)
-    {
-        $score = Score::find($id);
-        if (!$score) {
-            return response()->json(['message' => 'Score not found'], 404);
-        }
-        $score->update($request->all());
-        return response()->json($score);
-    }
-
-    public function destroy($id)
-    {
-        $score = Score::find($id);
-        if (!$score) {
-            return response()->json(['message' => 'Score not found'], 404);
-        }
-        $score->delete();
-        return response()->json(['message' => 'Score deleted']);
-    }
 }

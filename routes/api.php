@@ -16,5 +16,3 @@ Route::get('questions', [QuestionController::class, 'index']);
 // api crud score
 Route::get('scores', [ScoreController::class, 'index']); // GET /api/scores
 Route::post('scores', [ScoreController::class, 'store']); // POST /api/scores
-// Route::put('scores/{id}', [ScoreController::class, 'update']); // PUT /api/scores/{id}
-// Route::delete('scores/{id}', [ScoreController::class, 'destroy']); // DELETE /api/scores/{id}
