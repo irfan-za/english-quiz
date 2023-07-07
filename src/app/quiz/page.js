@@ -36,7 +36,6 @@ const fetcher= async(url)=> {
 
 export default function Quiz() {
   const [showAlert, setShowAlert]= useState(false)
-  const [alertText, setAlertText]= useState(null)
   const [mainLoading, setMainLoading]= useState(false)
   const [PrevScoreMobile, setPrevScoreMobile]= useState(false)
   const [showContent, setShowContent]= useState('difficulty')
@@ -46,6 +45,7 @@ export default function Quiz() {
   const [timerStart, setTimerStart] = useState(false); 
   const [visibleHint, setVisibleHint]= useState(true)
   const [isCorrect, setIsCorrect]= useState()
+  const [isFinished, setIsFinished]= useState(false)
   const [hintRemain, setHintRemain]= useState(2) //membatasi hint 2 kali
   const [page, setPage]= useState(1)
   // const [diff, setDiff]= useState(null)   
@@ -97,7 +97,10 @@ useEffect(() => {
         localStorage.setItem('hardScore', score)
         break
     }
-    callAlert(true)
+    setIsFinished(true)
+    callAlert()
+    //play finished audio
+    new Audio('https://www.myinstants.com/media/sounds/kids_cheering.mp3').play()
     setTimeout(() => {
       resultRef.current.click();
     }, 2000);
@@ -164,7 +167,10 @@ const finishQuiz = () => {
   setTimeout(() => {
     resultRef.current.click();
   }, 3900)
-  callAlert(true)
+  setIsFinished(true)
+  callAlert()
+  // play finished audio
+  new Audio('https://www.myinstants.com/media/sounds/kids_cheering.mp3').play()
 
   switch(diff) { 
     case 'easy':
@@ -187,9 +193,13 @@ const finishQuiz = () => {
       if (e.target.answer.value.toLowerCase() === currentQuestion.toLowerCase()) {
         setIsCorrect(true)
         callAlert()
+        // play correct audio
+        new Audio('https://www.myinstants.com/media/sounds/correct_uQ7Arvh.mp3').play()
         setScore(score + 10)
       } else {
         setIsCorrect(false)
+        // play wrong audio
+        new Audio('https://www.myinstants.com/media/sounds/spongebob-disappointed-sound-effect.mp3').play()
         callAlert()
       }
       e.target.answer.value=''
@@ -224,28 +234,13 @@ const showHint = () => {
 }
   
 // ALERT
-const callAlert = (isFinished=false) => {
-    let alertAudio = isCorrect
-      ? new Audio('https://www.myinstants.com/media/sounds/correct_uQ7Arvh.mp3')
-      : new Audio('https://www.myinstants.com/media/sounds/spongebob-disappointed-sound-effect.mp3')
+const callAlert = () => {
   
     setTimeout(() => {
     setShowAlert(false)
-    setAlertText(null)
   }, 20000)
   setShowAlert(true)
 
-  if (isFinished) {
-      new Audio('https://www.myinstants.com/media/sounds/kids_cheering.mp3').play()
-      setAlertText(<AlertFinish score={score}/>)
-      return
-    }
-  else if (isCorrect) {
-    setAlertText(<AlertCorrect/>)
-  } else {
-    setAlertText(<AlertWrong/>)
-  }
-  alertAudio.play()
 }
 
 
@@ -361,9 +356,24 @@ if(isLoading) {
       <div className='absolute w-24 h-24 rounded-full bg-orange-400 top-3/4 md:top-[58%] right-[60%]'></div>
     </div>
 
-        <div className={`flex-col justify-center items-center absolute  left-1/2 -translate-x-1/2 w-max h-max py-2 px-8 rounded-lg text-white text-xl  ${showAlert ? 'flex top-20 opacity-100 duration-300 ease-out' : 'opacity-0 -top-32'} ${isCorrect ? 'bg-green-500' : 'bg-red-500'} `} >
-          {alertText}
-        </div>
+    {
+      isFinished ?
+          <div className={`flex-col justify-center items-center absolute  left-1/2 -translate-x-1/2 w-max h-max py-2 px-8 rounded-lg bg-orange-400 text-white text-xl  ${showAlert ? 'flex top-20 opacity-100 duration-300 ease-out' : 'opacity-0 -top-32'}`} >
+            <AlertFinish score={score}/>
+          </div>
+      :
+      (
+        isCorrect?
+          <div className={`flex-col justify-center items-center absolute  left-1/2 -translate-x-1/2 w-max h-max py-2 px-8 rounded-lg bg-green-500 text-white text-xl  ${showAlert ? 'flex top-20 opacity-100 duration-300 ease-out' : 'opacity-0 -top-32'}`} >            <AlertCorrect/>
+          </div>
+          :
+          <div className={`flex-col justify-center items-center absolute  left-1/2 -translate-x-1/2 w-max h-max py-2 px-8 rounded-lg bg-red-500 text-white text-xl  ${showAlert ? 'flex top-20 opacity-100 duration-300 ease-out' : 'opacity-0 -top-32'}`} >
+            <AlertWrong/>
+          </div>
+      )
+
+
+    }
 
         <a ref={resultRef} href="/results" className='hidden'></a>
     </div>
