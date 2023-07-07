@@ -10,14 +10,6 @@ import AlertCorrect from '@/components/AlertCorrect'
 import AlertWrong from '@/components/AlertWrong'
 import Link from 'next/link'
 
-
-
-
-// Initializing element
-const ezScore = localStorage.getItem('ezScore') ? localStorage.getItem('ezScore') : '0'
-const medScore = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : '0'
-const hardScore = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : '0'
-
 const fetcher= async(url)=> {
   const response = await fetch(`${url}`);
   const {data} = await response.json();
@@ -34,6 +26,27 @@ const fetcher= async(url)=> {
   return data;
 }
 
+const scoreFetcher=async(url)=>{
+  const response = await fetch(url);
+  const data = await response.json();
+  return data
+}
+const saveScore=async( ez_score)=>{
+  const res= await fetch(`${process.env.API_URL}/scores`,{
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+      'Connection': 'keep-alive',
+    },
+    body: JSON.stringify({
+      ez_score: ez_score
+  })
+  })
+  // const result = await res.json();
+  // console.log('✅✅EZ SCORE : ',result);
+}
+
 export default function Quiz() {
   const [showAlert, setShowAlert]= useState(false)
   const [mainLoading, setMainLoading]= useState(false)
@@ -41,7 +54,7 @@ export default function Quiz() {
   const [showContent, setShowContent]= useState('difficulty')
   const [hint, setHint]= useState(null)
   const [score, setScore]= useState(0)
-  const [timer, setTimer] = useState(300); // 300 seconds (5 menit)
+  const [timer, setTimer] = useState(30); // 300 seconds (5 menit)
   const [timerStart, setTimerStart] = useState(false); 
   const [visibleHint, setVisibleHint]= useState(true)
   const [isCorrect, setIsCorrect]= useState()
@@ -54,13 +67,19 @@ export default function Quiz() {
   const [audio, setAudio]= useState(null)   
   const [level, setLevel]= useState(null)
 
-  const uri= `${process.env.API_URL}?level=${level}`
+  const uri= `${process.env.API_URL}/questions?level=${level}`
   const { data, isLoading, error } = useSWR(level ? uri : null, fetcher)
   const runFetch=(lvl)=>{
     if(!data){
       setLevel(lvl)
     }
   }
+  // fetch score data 
+  const { data:scoreFromDb, isScoreLoading, error:errorScore } = useSWR(`${process.env.API_URL}/scores`, scoreFetcher)
+
+  const ezScore = scoreFromDb==undefined ? 0 : scoreFromDb[scoreFromDb.length-1]?.ez_score;
+  // const medScore = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : '0'
+  // const hardScore = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : '0'
 
 const answered = []
 
@@ -74,7 +93,7 @@ useEffect(() => {
 
   if (timerStart) {
     intervalId = setInterval(() => {
-      setTimer((prevTimer) => prevTimer - 1);
+        setTimer((prevTimer) => prevTimer - 1)
     }, 1000);
   }
 
@@ -88,15 +107,17 @@ useEffect(() => {
   if(timer === 0){
     switch(diff) { 
       case 'easy':
-        localStorage.setItem('ezScore', score)
+        saveScore(score)
+        // localStorage.setItem('ezScore', score)
         break
-      case 'medium':
-        localStorage.setItem('medScore', score)
-        break
-      case 'hard':
-        localStorage.setItem('hardScore', score)
-        break
+      // case 'medium':
+      //   localStorage.setItem('medScore', score)
+      //   break
+      // case 'hard':
+      //   localStorage.setItem('hardScore', score)
+      //   break
     }
+    setTimerStart(false)
     setIsFinished(true)
     callAlert()
     //play finished audio
@@ -115,7 +136,6 @@ const handleEasyBtn = async() => {
 
   runFetch(diff)
   //runQuiz()
-  console.log('RUNN EASY');
   setTimerStart(true)
 }
 
@@ -167,6 +187,7 @@ const finishQuiz = () => {
   setTimeout(() => {
     resultRef.current.click();
   }, 3900)
+  setTimerStart(false)
   setIsFinished(true)
   callAlert()
   // play finished audio
@@ -174,14 +195,15 @@ const finishQuiz = () => {
 
   switch(diff) { 
     case 'easy':
-      localStorage.setItem('ezScore', score)
+      saveScore(score)
+      // localStorage.setItem('ezScore', score)
       break
-    case 'medium':
-      localStorage.setItem('medScore', score)
-      break
-    case 'hard':
-      localStorage.setItem('hardScore', score)
-      break
+    // case 'medium':
+    //   localStorage.setItem('medScore', score)
+    //   break
+    // case 'hard':
+    //   localStorage.setItem('hardScore', score)
+    //   break
   }
 }
 
@@ -274,7 +296,14 @@ if(isLoading) {
               {/* Easy */}
               latest
               </th>
-              <td>{ezScore}</td>
+              <td>
+                {
+                  isScoreLoading?
+                  'loading...'
+                  :
+                  ezScore
+                }
+                </td>
             </tr>
             {/* <tr className='border border-slate-400'>
               <th className="p-2 font-normal bg-orange-500 bg-opacity-30" scope="row">Medium</th>

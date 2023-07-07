@@ -1,12 +1,21 @@
 'use client'
+import useSWR from 'swr'
 import styles from '@/app/Quiz.module.css'
 import Link from 'next/link'
 
-const ezScore = localStorage.getItem('ezScore') ? localStorage.getItem('ezScore') : '0'
-const medScore = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : '0'
-const hardScore = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : '0'
+const scoreFetcher=async(url)=>{
+  const response = await fetch(url);
+  const data = await response.json();
+  return data
+}
 
 export default function page() {
+    // fetch score data 
+    const { data:scoreFromDb, isScoreLoading, error:errorScore } = useSWR(`${process.env.API_URL}/scores`, scoreFetcher)
+
+    const ezScore = scoreFromDb==undefined ? 0 : scoreFromDb[scoreFromDb.length-1]?.ez_score;
+    // const medScore = localStorage.getItem('medScore') ? localStorage.getItem('medScore') : '0'
+    // const hardScore = localStorage.getItem('hardScore') ? localStorage.getItem('hardScore') : '0'
   return (
     <div className={`w-full h-full min-h-screen overflow-x-hidden`}>
     <header className={`text-center w-11/12 max-w-lg m-auto mt-3 mb-20 px-3 py-1 text-white rounded-xl ${styles.header}`}>
