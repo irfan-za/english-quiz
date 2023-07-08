@@ -44,7 +44,7 @@
                     <tr>
                       <td></td>
                       <td>
-                        <button type="submit">Tambah</button>
+                        <button class="btn btn-success text-white" type="submit">Tambah</button>
                       </td>
                     </tr>
                     </table>

@@ -32,14 +32,15 @@
                   </table>
 
                   <br><br>
-                  <div class="row border" >
-                    <form action="{{route('questions.destroy', $question->id )}}" method="POST">
+                  <div class="d-flex" >
+                    <form action="{{route('questions.destroy', $question->id )}}" method="POST"
+                    class="mx-4">
                       @csrf
                       @method('DELETE')
-                      <button type="submit" class="danger">Hapus</button>
+                      <button type="submit" class="btn btn-danger text-white">Hapus</button>
                     </form>
                     <a href="{{route('questions.edit', $question->id )}}" >
-                      <button class="warning" >Edit</button>
+                      <button class="btn btn-warning text-white" >Edit</button>
                     </a>
                   </div>
                   <br>

@@ -21,8 +21,8 @@
                     <p class="message">{{ session('message') }}</p>
                     <p class="message message-delete">{{ session('message-delete') }}</p>
                     <br><br>
-                    <button>
-                        <a href="{{route('questions.add')}}">Tambah soal</a>
+                    <button class="btn btn-success">
+                        <a class=" text-white" href="{{route('questions.add')}}">Tambah soal</a>
                     </button>
                 </div>
             </div>

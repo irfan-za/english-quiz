@@ -13,12 +13,15 @@
                             {{ session('status') }}
                         </div>
                     @endif
+                    <h5>Selamat Datang di Halaman Admin</h5>
+                    <p>Anda dapat melakukan CRUD (Create, Read, Update, Delete) untuk melihat data, mengedit, menghapus, dan sebagainya.</p>
+
 
                     <button class="btn btn-primary">
-                        <a href="/questions">daftar soal</a>
+                        <a href="/questions" class="text-white">daftar soal</a>
                     </button>
-                    <button class="btn btn-success">
-                        <a href="/questions/add">tambah soal</a>
+                    <button class="btn btn-secondary">
+                        <a href="/questions/add" class="text-white">tambah soal</a>
                     </button>
                 </div>
             </div>
