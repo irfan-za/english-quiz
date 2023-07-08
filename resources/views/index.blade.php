@@ -14,10 +14,10 @@
                         </div>
                     @endif
 
-                    <button>
+                    <button class="btn btn-primary">
                         <a href="/questions">daftar soal</a>
                     </button>
-                    <button>
+                    <button class="btn btn-success">
                         <a href="/questions/add">tambah soal</a>
                     </button>
                 </div>
